@@ -1,0 +1,18 @@
+div(ng-include='"components/navbar/navbar.html"')
+div(snap-drawer)#drawers
+  div(snap-drawer-left)#leftdrawer
+    div
+      ul
+        li DisplayName: {{tree.currentNode.displayname}}
+        li Enabled: {{tree.currentNode.data.enabled}}
+        li Equipment Class: {{tree.currentNode.data.eqClass}}
+        li ID: {{tree.currentNode.assetID}}
+    div(  
+     data-angular-treeview="true"
+     data-tree-id="tree"
+     data-tree-model="assets"
+     data-node-id="assetId"
+     data-node-label="displayname"
+     data-node-children="children")
+div(snap-content)#content
+  a#open-left
