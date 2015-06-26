@@ -18,6 +18,42 @@ exports.index = function(req, res) {
   Asset.assetTree(ret,dataCallback);
 };
 
+exports.classes = function(req, res) {
+  function dataCallback(result){
+    if(result){
+      return res.json(200,result);
+    } else {
+      console.log('No Results from Asset.Model');
+    }
+  }
+  var ret = [];
+  Asset.classTree(ret,dataCallback);
+};
+
+exports.showClass = function(req, res) {
+  function dataCallback(result){
+    if(result){
+      return res.json(200,result);
+    } else {
+      console.log('No Results from Asset.Model');
+    }
+  }
+  var ret = [];
+  Asset.getClass(ret,dataCallback,req.params.id);
+};
+
+exports.showAsset = function(req, res) {
+  function dataCallback(result){
+    if(result){
+      return res.json(200,result);
+    } else {
+      console.log('No Results from Asset.Model');
+    }
+  }
+  var ret = [];
+  getAsset(ret,dataCallback,req.params.id);
+};
+
 /*/ Get a single asset
 exports.show = function(req, res) {
   Asset.findById(req.params.id, function (err, asset) {

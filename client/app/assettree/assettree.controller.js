@@ -3,19 +3,43 @@
 angular.module('bmw1App')
   .controller('AssettreeCtrl', function ($scope,$http,socket) {
     $scope.assets = [];
-
-    $http.get('/api/assets').success(function(assets) {
+    $scope.clas = [];
+    $scope.tree = [];
+    $scope.asset = {};
+    //------Init-----------
+    $http.get('/api/assets/asset').success(function(assets) {
       $scope.assets = assets;
-      console.log(assets);
-      console.log('Success');
+      $scope.tree = $scope.asseets;
       //socket.syncUpdates('asset', $scope.assets);
     }).
     error(function(data, status, headers, config) {
       console.log('Failure');
 
-    // called asynchronously if an error occurs
-    // or server returns response with an error status.
     });
+
+    $http.get('/api/assets/class').success(function(classes) {
+      $scope.clas = classes;
+      console.log(classes);
+      console.log('Success');
+      //socket.syncUpdates('asset', $scope.assets);
+    }).
+    error(function(data, status, headers, config) {
+      console.log('Failure');
+    });
+    //Functions
+    $scope.loadAsset = function(treeAsset){
+      $http.get('/api/asset/' + treeAsset.ID).success(function(asset){
+        $scope.asset = asset;
+      }).
+      error(function(data,status, headers, config){
+
+      });
+    }
+
+
+
+
+
 
     //Add snap button functions for treeview side panel
     var snapper = new Snap({

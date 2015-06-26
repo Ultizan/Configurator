@@ -3,16 +3,24 @@ div(snap-drawer)#drawers
   div(snap-drawer-left)#leftdrawer
     div
       ul
-        li DisplayName: {{tree.currentNode.displayname}}
-        li Enabled: {{tree.currentNode.data.enabled}}
-        li Equipment Class: {{tree.currentNode.data.eqClass}}
-        li ID: {{tree.currentNode.assetID}}
+        li 
+          input(
+            type='button'
+            value='Assets'
+            data-ng-click='tree = assets'
+            )
+        li 
+          input(
+            type='button'
+            value='Classes'
+            data-ng-click='tree = clas'
+            )
     div(  
      data-angular-treeview="true"
-     data-tree-id="tree"
-     data-tree-model="assets"
-     data-node-id="assetId"
-     data-node-label="displayname"
+     data-tree-id="leftTree"
+     data-tree-model="tree"
+     data-node-id="treeId"
+     data-node-label="displayName"
      data-node-children="children")
 div(snap-content)#content
   a#open-left
