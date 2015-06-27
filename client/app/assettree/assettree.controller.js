@@ -5,15 +5,16 @@ angular.module('bmw1App')
     $scope.assets = [];
     $scope.clas = [];
     $scope.tree = [];
-    $scope.asset = {};
-    //------Init-----------
+    $scope.objAsset = {};
+    $scope.objClass = {};
+//------Init Tree Views-----------
     $http.get('/api/assets/asset').success(function(assets) {
       $scope.assets = assets;
       $scope.tree = $scope.asseets;
       //socket.syncUpdates('asset', $scope.assets);
     }).
     error(function(data, status, headers, config) {
-      console.log('Failure');
+      console.log('Failure-http get assets');
 
     });
 
@@ -24,19 +25,29 @@ angular.module('bmw1App')
       //socket.syncUpdates('asset', $scope.assets);
     }).
     error(function(data, status, headers, config) {
-      console.log('Failure');
+      console.log('Failure-http get classes');
     });
-    //Functions
-    $scope.loadAsset = function(treeAsset){
-      $http.get('/api/asset/' + treeAsset.ID).success(function(asset){
-        $scope.asset = asset;
-      }).
-      error(function(data,status, headers, config){
+//-------Add Load Functions ---------
+    $scope.loadTreeItem = function(){
+      var treeID = $scope.leftTree.currentNode.data.ID;
+      var type = $scope.leftTree.currentNode.type;
 
-      });
-    }
-
-
+      if(type === 'Asset'){
+        $http.get('/api/assets/asset/' + treeID).success(function(asset){
+          $scope.objAsset = asset;
+        }).
+        error(function(data,status, headers, config){
+          console.log('Failure-http get asset');
+        })
+      }else if(type === 'AssetClass'){
+        $http.get('/api/assets/class/' + treeID).success(function(objClass){
+          $scope.objClass = objClass;
+        }).
+        error(function(data,status, headers, config){
+          console.log('Failure-http get class');
+        });
+      }
+    };
 
 
 

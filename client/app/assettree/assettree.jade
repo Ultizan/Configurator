@@ -15,11 +15,20 @@ div(snap-drawer)#drawers
             value='Classes'
             data-ng-click='tree = clas'
             )
+        li
+          input(
+            type='button'
+            value='load'
+            ng-click='loadTreeItem()'
+            )
+    div#selected
+      span
+        b {{leftTree.currentNode.treeID}}
     div(  
      data-angular-treeview="true"
      data-tree-id="leftTree"
      data-tree-model="tree"
-     data-node-id="treeId"
+     data-node-id="treeID"
      data-node-label="displayName"
      data-node-children="children")
 div(snap-content)#content

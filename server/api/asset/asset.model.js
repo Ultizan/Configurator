@@ -15,7 +15,7 @@ var config = {
 
 
 module.exports = {
-	assetTree: function Conn(ret,returnData){
+	assetTree: function (ret,returnData){
 		var strQuery = 'SELECT ID, RecursiveParentID, Name, Enabled, DisplayName, EquipmentClassID from ASC_Equipment WHERE SetForDeletion = 0'
 		console.log(strQuery);
 
@@ -34,9 +34,9 @@ module.exports = {
 			});
 		});
 	},
-	classTree: function Conn(ret,returnData){
-		var strClassQuery = 'SELECT ID, RecursiveParentID, ParentID, Name, Description, CustomIdentifier, IconDefinitionID,Created,Updated,Author from ASC_EquipmentClasses WHERE SetForDeletion = 0'
-		var strFolderQuery = 'SELECT ID, RecursiveParentID, Name from ASC_EquipmentClassFolders WHERE SetForDeletion = 0'
+	classTree: function (ret,returnData){
+		var strClassQuery = 'SELECT * from ASC_EquipmentClasses WHERE SetForDeletion = 0'//ID, RecursiveParentID, ParentID, Name, Description, CustomIdentifier, IconDefinitionID,Created,Updated,Author from ASC_EquipmentClasses WHERE SetForDeletion = 0'
+		var strFolderQuery = 'SELECT * from ASC_EquipmentClassFolders WHERE SetForDeletion = 0'//ID, RecursiveParentID, Name from ASC_EquipmentClassFolders WHERE SetForDeletion = 0'
 		
 		async.parallel([
 			function(callback){
@@ -77,11 +77,44 @@ module.exports = {
 	},
 
 	getClass: function (ret,returnData,id){
-		console.log('Heres Your Class')
+		var strQuery = 'SELECT * from ASC_EquipmentClassProperties WHERE parentID = ' + id;
+		console.log(strQuery);
+
+		var con = new sql.Connection(config, function(err){
+			if(err){
+				console.log(err);
+			}
+			var request = new sql.Request(con);
+
+			request.query(strQuery,function(err,recordset){
+				if(err){
+					console.log(err);
+				}
+				ret= recordset;
+				returnData(ret);
+			});
+		});		
 	},
 
-	getAsset: function(ret, returnData,id){
-		console.log('Heres Your asset')
+	getAsset: function(ret,returnData,id){
+		var strQuery = 'SELECT * from ASC_EquipmentProperties WHERE parentID = ' + id;
+		console.log(strQuery);
+
+		var con = new sql.Connection(config, function(err){
+			if(err){
+				console.log(err);
+			}
+			var request = new sql.Request(con);
+
+			request.query(strQuery,function(err,recordset){
+				if(err){
+					console.log(err);
+				}
+				ret= recordset;
+				console.log(ret);
+				returnData(ret);
+			});
+		});		
 	}
 };
 
@@ -94,6 +127,7 @@ function makeTree(items){
 	        treeParentID: item.RecursiveParentID,
 	        treeID: item.ID,
 	        displayName: item.DisplayName||item.Name,
+	        type: 'Asset'
 	    };
 	    for (var key in item){
 			itemsByID[item.ID].data[key] = item[key];

@@ -51,7 +51,7 @@ exports.showAsset = function(req, res) {
     }
   }
   var ret = [];
-  getAsset(ret,dataCallback,req.params.id);
+  Asset.getAsset(ret,dataCallback,req.params.id);
 };
 
 /*/ Get a single asset
