@@ -5,6 +5,7 @@ angular.module('bmw1App')
     $scope.assets = [];
     $scope.clas = [];
     $scope.tree = [];
+    $scope.objBAC = [];
     $scope.objAsset = {};
     $scope.objClass = {};
 //------Init Tree Views-----------
@@ -48,7 +49,15 @@ angular.module('bmw1App')
         });
       }
     };
+    $scope.loadBAC = function(){
+        $http.get('/api/xls/bac').success(function(BAC){
+          $scope.objBAC = BAC;
+        }).
+        error(function(data,status, headers, config){
+          console.log('Failure-http get asset');
+        });
 
+    }
 
 
 

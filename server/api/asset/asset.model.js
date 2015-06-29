@@ -1,11 +1,12 @@
 'use strict';
 var sql = require('mssql');
 var async = require('async');
+var localconfig = require('../../config/local.env.js');
 
 var config = {
-    user: 'roviReader',
-    password: 'rovisys',
-    server: '192.168.1.19\\SQLExpress2014', // You can use 'localhost\\instance' to connect to named instance 
+    user: localconfig.ICO_USER,
+    password: localconfig.ICO_PW,
+    server: localconfig.ICO_SERVER_IP,
     database: 'AssetWorX'//,
     
     //options: {
@@ -90,7 +91,7 @@ module.exports = {
 				if(err){
 					console.log(err);
 				}
-				ret= recordset;
+				ret = recordset;
 				returnData(ret);
 			});
 		});		
@@ -110,7 +111,7 @@ module.exports = {
 				if(err){
 					console.log(err);
 				}
-				ret= recordset;
+				ret = recordset;
 				console.log(ret);
 				returnData(ret);
 			});

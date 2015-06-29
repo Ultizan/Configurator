@@ -18,6 +18,7 @@ function onConnect(socket) {
   });
 
   // Insert sockets below 
+  require('../api/xls/xls.socket').register(socket);
   //require('../api/asset/asset.socket').register(socket);
   require('../api/thing/thing.socket').register(socket);
 }

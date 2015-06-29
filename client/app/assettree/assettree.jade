@@ -21,6 +21,12 @@ div(snap-drawer)#drawers
             value='load'
             ng-click='loadTreeItem()'
             )
+        li
+          input(
+            type='button'
+            value='BAC'
+            ng-click='loadBAC()'
+            )
     div#selected
       span
         b {{leftTree.currentNode.treeID}}
@@ -33,3 +39,4 @@ div(snap-drawer)#drawers
      data-node-children="children")
 div(snap-content)#content
   a#open-left
+
