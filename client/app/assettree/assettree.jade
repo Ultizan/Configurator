@@ -2,7 +2,7 @@ div(ng-include='"components/navbar/navbar.html"')
 div(snap-drawer)#drawers
   div(snap-drawer-left)#leftdrawer
     div
-      ul
+      //ul
         li 
           input(
             type='button'
@@ -39,4 +39,31 @@ div(snap-drawer)#drawers
      data-node-children="children")
 div(snap-content)#content
   a#open-left
+  input(
+    type='button'
+    value='load'
+    ng-click='loadTreeItem()'
+    )
+  input(
+    type='button'
+    value='Show BAC Objects'
+    ng-click='showBAC()'
+    )
+  div
+    table
+      thead
+        th Property
+        th Asset Value 
+        th Class Value
+        th BAC Value
+      tbody(ng-repeat='p in props')
+        tr
+          td(colspan=4 ng-click='collapseRow(p)').header{{p.properties.Name.values[0]}}
+        tr(ng-repeat = '(x,y) in p.properties' ng-show = 'boolAND([y.show,p.show])')
+          td.nameCol {{x}}
+          td.assetCol {{y.values[0]}}
+          td.classCol {{y.values[1]}}
+          td(contenteditable='true').bacCol {{y.values[2]}}
+
+      
 

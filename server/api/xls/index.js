@@ -5,7 +5,7 @@ var controller = require('./xls.controller');
 
 var router = express.Router();
 
-router.get('/bac', controller.bac);
+router.get('/bac/:id', controller.bac);
 /*
 router.get('/:id', controller.show);
 router.post('/', controller.create);

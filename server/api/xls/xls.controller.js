@@ -13,7 +13,7 @@ exports.bac = function(req, res) {
     }
   }
   var ret = [];
-  Xls.getBAC(ret,dataCallback);
+  Xls.getBAC(ret,dataCallback,req.params.id);
 };
 
 // Get a single xls

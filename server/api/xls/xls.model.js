@@ -13,11 +13,36 @@ var DIR = './xlsFiles',
 	CI_INFO;
 
 module.exports = {
-	getBAC: function(ret,dataCallback){
+	getBAC: function(ret,dataCallback,id){
 		initBAC();
-		console.log(INIT);
-		dataCallback(CI);
+		ret = getBacAsset(id);
+		//console.log(ret);
+		dataCallback(ret);
 	}	
+
+}
+
+function getBacAsset(id){
+	var i,strCell,cell,rowNum,ret,strHeader,header;
+	ret={};
+	rowNum = BACMAP[id];
+	if (typeof rowNum !== 'undefined'){
+		for(i=1;i<CI_INFO.ecn;i++){
+			strCell=toColumnName(i) + rowNum.toString();
+			strHeader=toColumnName(i) + '1';
+			cell = CI[strCell];
+			header = CI[strHeader];
+			//console.log(cell);
+			if(typeof cell !== 'undefined'){
+				ret[CI[strHeader].v]=cell.v
+			}
+		}
+		return(ret);
+	}else{
+		ret = {
+		};
+		return(ret);
+	}
 
 }
 
@@ -54,9 +79,7 @@ function initBAC(){
 			strCell = keyCol + i.toString()
 			cellValue = CI[strCell].v
 			BACMAP[cellValue] = i;
-			console.log(strCell);
 		}
-		console.log(BACMAP);
 	}
 }
 
@@ -111,20 +134,26 @@ function to_json(worksheet) {
 }
 
 function getWsInfo(ws){
-	var range = ws['!ref'];
-	var s = range.split(':')[0];
-	var e = range.split(':')[1];
-	var sr =s.replace(/\D/g,'') 
-	var er =e.replace(/\D/g,'') 
-	var sc =s.replace(/\d/g,'') 
-	var ec =e.replace(/\d/g,'') 
-	var info={
+	var range = ws['!ref'],
+		s = range.split(':')[0],
+		e = range.split(':')[1],
+		sr =s.replace(/\D/g,''),
+		er =e.replace(/\D/g,''),
+		sc =s.replace(/\d/g,''),
+		ec =e.replace(/\d/g,''),
+		scn=toColumnNumber(sc),
+		ecn=toColumnNumber(ec),
+		info
+
+	info={
 		's':s,
 		'e':e,
 		'sr':sr,
 		'er':er,
 		'sc':sc,
-		'ec':ec
+		'ec':ec,
+		'scn':scn,
+		'ecn':ecn
 	}
 	return info;
 }

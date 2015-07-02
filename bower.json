@@ -16,7 +16,8 @@
     "angular-socket-io": "~0.6.0",
     "angular-ui-router": "~0.2.10",
     "angular-snap": "~1.8.1",
-    "angular-treeview": "~0.1.6"
+    "angular-treeview": "*",
+    "async": "~1.3.0"
   },
   "devDependencies": {
     "angular-mocks": ">=1.2.*",

@@ -17,7 +17,7 @@ var config = {
 
 module.exports = {
 	assetTree: function (ret,returnData){
-		var strQuery = 'SELECT ID, RecursiveParentID, Name, Enabled, DisplayName, EquipmentClassID from ASC_Equipment WHERE SetForDeletion = 0'
+		var strQuery = 'SELECT * from ASC_Equipment WHERE SetForDeletion = 0'
 		console.log(strQuery);
 
 		var con = new sql.Connection(config, function(err){
@@ -112,7 +112,7 @@ module.exports = {
 					console.log(err);
 				}
 				ret = recordset;
-				console.log(ret);
+				//console.log(ret);
 				returnData(ret);
 			});
 		});		
